@@ -17,7 +17,17 @@ const connect = (options) => {
 
         client.on('connect', () => {
             console.log('connected');
-            const commands = ['get', 'set', 'end', 'hmset', 'hgetall'];
+            const commands = [
+                'get',
+                'set',
+                'end',
+                'hmset',
+                'hgetall',
+                'lpush',
+                'lrange',
+                'rpop',
+                'del',
+            ];
 
             const api = commands.reduce((finalObj, cmd) => {
                 finalObj[cmd] = promisify(client[cmd]).bind(client);
@@ -46,6 +56,13 @@ const init = async () => {
         await client.hmset('hash', objPairs);
         const hashResult = await client.hgetall('hash');
         console.log('hash:', hashResult);
+
+        // list
+        await client.lpush('poc:list', 'foobar', 'foo', 'bar');
+        const listPopResult = await client.rpop('poc:list');
+        const listResult = await client.lrange('poc:list', 0, -1);
+        console.log('poc:list', listPopResult, listResult);
+        await client.del('poc:list');
 
         client.end(true);
     } catch (error) {
