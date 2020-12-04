@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/LonnyGomes/node-redis-poc#readme",
   "dependencies": {
+    "lodash": "^4.17.20",
     "redis": "^3.0.2"
   }
 }
