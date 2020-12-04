@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/LonnyGomes/node-redis-poc/issues"
   },
-  "homepage": "https://github.com/LonnyGomes/node-redis-poc#readme"
+  "homepage": "https://github.com/LonnyGomes/node-redis-poc#readme",
+  "dependencies": {
+    "redis": "^3.0.2"
+  }
 }
