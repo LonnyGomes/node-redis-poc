@@ -44,24 +44,24 @@ const init = async () => {
         const client = await connect(connectionOps);
 
         // key/values
-        await client.set('docker', 'testing123');
-        const result = await client.get('docker');
-        console.log('key/value result:', result);
+        await client.set('poc:key', 'testing123');
+        const result = await client.get('poc:key');
+        console.log('poc:key -', result);
 
         // hashes
         const obj = { a: 1, b: 2, c: 3, d: 4, hello: 'world' };
         // convert the object to key/value pairs
         const objPairs = _.chain(obj).toPairs().flatten().value();
 
-        await client.hmset('hash', objPairs);
-        const hashResult = await client.hgetall('hash');
-        console.log('hash:', hashResult);
+        await client.hmset('poc:hash', objPairs);
+        const hashResult = await client.hgetall('poc:hash');
+        console.log('poc:hash -', hashResult);
 
         // list
         await client.lpush('poc:list', 'foobar', 'foo', 'bar');
         const listPopResult = await client.rpop('poc:list');
         const listResult = await client.lrange('poc:list', 0, -1);
-        console.log('poc:list', listPopResult, listResult);
+        console.log('poc:list -', listPopResult, listResult);
         await client.del('poc:list');
 
         client.end(true);
